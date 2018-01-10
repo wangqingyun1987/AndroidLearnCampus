@@ -15,20 +15,15 @@ class DaggerEncapsulate {
     @Inject lateinit var dataChannel: DataChannel
     @Inject @field:Named(UI_TEXT) lateinit var text: String
 
-    init {
-        val sub = SubEncapsulate()
+    private val sub = SubEncapsulate()
 
+    init {
         val component = DaggerEncAppComponent.builder().build().uiBuilder().build()
         component.inject(this)
         component.inject(sub)
-
-        work()
-        sub.work()
     }
 
-    fun work() {
-        Log.d("WQY", "main encap --> ${dataChannel.readData().value}, $text")
-    }
+    fun work(): String = "代号${dataChannel.readData().value}, $text\n代号${sub.dataChannel.readData().value}, ${sub.text}"
 }
 
 class SubEncapsulate {

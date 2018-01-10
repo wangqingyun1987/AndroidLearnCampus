@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.wangqingyun.learncampus.learndagger.DaggerEncapsulate
 import com.wangqingyun.learncampus.learndagger.modules.HEAD_LINE
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -17,16 +19,24 @@ import javax.inject.Named
  */
 
 class HeadLineFragment : Fragment() {
-    @Inject @field:Named(HEAD_LINE) lateinit var headLine: String
+    private lateinit var headline: TextView
 
     override fun onAttach(activity: Activity) {
         AndroidSupportInjection.inject(this)
         super.onAttach(activity)
-
-        Log.d("WQY", "head line is: $headLine")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_headline, container, false)
+        val view = inflater.inflate(R.layout.fragment_headline, container, false)
+
+        headline = view.findViewById(R.id.headline)
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        headline.text = DaggerEncapsulate().work()
     }
 }
