@@ -1,5 +1,6 @@
 package com.wangqingyun.learncampus.learndagger.modules.scoped
 
+import com.wangqingyun.learncampus.learndagger.components.scoped.CarComponent
 import com.wangqingyun.learncampus.learndagger.models.scoped.Vehicle
 import dagger.Module
 import dagger.Provides
@@ -10,7 +11,7 @@ import javax.inject.Singleton
  * Created by wangqingyun on 10/01/2018.
  */
 
-@Module
+@Module(subcomponents = arrayOf(CarComponent::class))
 class VehicleModule {
     @Singleton
     @Provides
