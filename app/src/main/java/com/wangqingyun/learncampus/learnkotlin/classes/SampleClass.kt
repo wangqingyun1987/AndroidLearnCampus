@@ -14,4 +14,9 @@ class SampleClass {
 
     val age: Int
         get() = 101
+
+    var gender: String = "m"
+        set(value) {
+            field = if (value.startsWith("m")) "m" else "f"
+        }
 }
