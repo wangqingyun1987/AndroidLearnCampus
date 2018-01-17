@@ -5,6 +5,8 @@ import kotlin.properties.Delegates
 
 /**
  * Created by qingyun.wang on 17/01/2018.
+ *
+ * refer to : https://kotlinlang.org/docs/reference/delegated-properties.html
  */
 
 class LazySample {
