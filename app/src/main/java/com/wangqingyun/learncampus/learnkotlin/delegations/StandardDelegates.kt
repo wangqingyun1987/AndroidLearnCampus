@@ -48,8 +48,24 @@ class VetoSample {
     }
 }
 
+class MapSample(map: Map<String, Any?>, mutMap: MutableMap<String, Any?>) {
+    val name: String by map
+    val age: Int     by map
+
+    var era: String  by mutMap
+
+    fun work() {
+        Log.d("WQY", "--> $name, $age, $era")
+    }
+}
+
 fun tryStandardDelegates() {
     LazySample().work()
     ObservableSample().work()
     VetoSample().work()
+
+    MapSample(
+            mapOf("name" to "汉武", "age" to 100),
+            mutableMapOf("era" to "公元前202")
+    ).work()
 }
