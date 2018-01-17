@@ -10,6 +10,7 @@ import kotlin.reflect.KProperty
 class Panasonic {
     private var value = ""
 
+    /* thisRef in this case is the GenericE instance, while property is the field "text" */
     operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
         return "Pan: $value"
     }
