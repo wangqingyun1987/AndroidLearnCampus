@@ -1,6 +1,8 @@
 package com.wangqingyun.learncampus.learnkotlin.delegations
 
 import android.util.Log
+import kotlin.properties.ReadOnlyProperty
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
@@ -10,6 +12,7 @@ import kotlin.reflect.KProperty
 class Panasonic {
     private var value = ""
 
+    /* thisRef in this case is the GenericE instance, while property is the field "text" */
     operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
         return "Pan: $value"
     }
@@ -19,13 +22,34 @@ class Panasonic {
     }
 }
 
+class Hitachi<in R>: ReadOnlyProperty<R, String> {
+    override fun getValue(thisRef: R, property: KProperty<*>): String {
+        return "Manufactured by Hitachi"
+    }
+}
+
+class TCL<in R>: ReadWriteProperty<R, String> {
+    private var storage = ""
+
+    override fun getValue(thisRef: R, property: KProperty<*>): String {
+        return storage
+    }
+
+    override fun setValue(thisRef: R, property: KProperty<*>, value: String) {
+        storage = "TCL . $value"
+    }
+}
+
 class GeneralE {
-    var text: String by Panasonic()
+    var text:  String by Panasonic()
+    val ttHit: String by Hitachi<GeneralE>()
+    var ttCL:  String by TCL<GeneralE>()
 
     fun work() {
         text = "Radio Receiver KH7"
+        ttCL = "TV Station"
 
-        Log.d("WQY", "radio prototype: $text")
+        Log.d("WQY", "radio prototype: $text, $ttHit, $ttCL")
     }
 }
 
