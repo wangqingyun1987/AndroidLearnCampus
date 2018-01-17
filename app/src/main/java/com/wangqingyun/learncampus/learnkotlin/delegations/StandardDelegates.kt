@@ -31,8 +31,25 @@ class ObservableSample {
     }
 }
 
+class VetoSample {
+    var name: String by Delegates.vetoable("嘉靖") {
+        property, oldValue, newValue ->
+        Log.d("WQY", "$property wants to change from $oldValue to $newValue")
+        newValue.length == 2
+    }
+
+    fun work() {
+        name = "万历"
+        Log.d("WQY", "name now : $name")
+        name = "张居正"
+        Log.d("WQY", "name now : $name")
+        name = "隆庆"
+        Log.d("WQY", "name now : $name")
+    }
+}
+
 fun tryStandardDelegates() {
     LazySample().work()
-
     ObservableSample().work()
+    VetoSample().work()
 }
