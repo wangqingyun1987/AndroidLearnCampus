@@ -7,6 +7,7 @@ import android.util.Log
  */
 
 class LazySample {
+    // By default, the evaluation of lazy properties is synchronized
     val value: String by lazy {
         "大秦帝国"
     }
