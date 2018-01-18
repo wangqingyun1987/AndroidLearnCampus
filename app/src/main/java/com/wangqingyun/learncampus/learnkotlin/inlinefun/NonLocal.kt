@@ -39,6 +39,13 @@ inline fun goChina(crossinline china: () -> Unit) {
     run.run()
 }
 
+fun hasZeros(ints: List<Int>): Boolean {
+    ints.forEach {
+        if (it == 0) return true // returns from hasZeros
+    }
+    return false
+}
+
 fun tryNonLocalReturn() {
     goJapan {
         return
