@@ -26,9 +26,17 @@ fun tryTakeWithTime() {
             .subscribe { Log.d("WQY", "first two second : $it") }
 }
 
+fun trySkip() {
+    Observable.range(1, 30)
+            .skip(25)
+            .subscribe { Log.d("WQY", "last of 30s : $it") }
+}
+
 fun trySuppressing() {
     tryFilter()
 
     tryTakeWithAccount()
     tryTakeWithTime()
+
+    trySkip()
 }
