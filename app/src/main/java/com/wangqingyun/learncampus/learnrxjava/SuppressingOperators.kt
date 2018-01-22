@@ -85,6 +85,18 @@ fun tryElementAt() {
             .subscribe{ Log.d("WQY", "ranked 3 : $it") }
 }
 
+fun tryFirstElement() {
+    Observable.range(1, 10)
+            .firstElement()
+            .subscribe { Log.d("WQY", "first : $it") }
+}
+
+fun tryLastElement() {
+    Observable.range(1, 10)
+            .lastElement()
+            .subscribe { Log.d("WQY", "last : $it") }
+}
+
 fun trySuppressing() {
     tryFilter()
 
@@ -101,4 +113,6 @@ fun trySuppressing() {
     tryDistinctUntilChanged()
 
     tryElementAt()
+    tryFirstElement()
+    tryLastElement()
 }
