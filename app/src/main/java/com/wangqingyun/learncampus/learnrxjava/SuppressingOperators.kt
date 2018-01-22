@@ -8,6 +8,17 @@ import java.util.concurrent.TimeUnit
  * Created by wangqingyun on 22/01/2018.
  */
 
+fun Int.isPrime(): Boolean {
+    val upper = Math.sqrt(toDouble()).toInt()
+
+    Log.d("WQY", "upper : $upper")
+
+    return (2..upper).none {
+        Log.d("WQY", "number : $this")
+        this % it == 0
+    }
+}
+
 fun tryFilter() {
     Observable.range(10, 10)
             .filter { it % 2 == 0 }
@@ -32,6 +43,11 @@ fun trySkip() {
             .subscribe { Log.d("WQY", "last of 30s : $it") }
 }
 
+fun tryTakeWhile() {
+    Observable.range(300, 50).takeWhile { !it.isPrime() }
+            .subscribe { Log.d("WQY", "none prime : $it") }
+}
+
 fun trySuppressing() {
     tryFilter()
 
@@ -39,4 +55,6 @@ fun trySuppressing() {
     tryTakeWithTime()
 
     trySkip()
+
+    tryTakeWhile()
 }
