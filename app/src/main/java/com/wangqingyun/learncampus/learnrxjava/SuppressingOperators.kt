@@ -2,6 +2,9 @@ package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 /**
@@ -48,6 +51,22 @@ fun tryTakeWhile() {
             .subscribe { Log.d("WQY", "none prime : $it") }
 }
 
+fun tryTakeUntil() {
+    var emitter: ObservableEmitter<Int>? = null
+    val observabel = Observable.create<Int> {
+        emitter = it
+    }
+
+    Observable.interval(500, TimeUnit.MILLISECONDS)
+            .takeUntil(observabel)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { Log.d("WQY", "take until : $it") }
+
+    Thread.sleep(2400)
+    emitter?.onNext(1)
+}
+
 fun trySuppressing() {
     tryFilter()
 
@@ -57,4 +76,6 @@ fun trySuppressing() {
     trySkip()
 
     tryTakeWhile()
+
+    tryTakeUntil()
 }
