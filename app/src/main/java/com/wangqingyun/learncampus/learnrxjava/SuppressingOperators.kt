@@ -79,6 +79,12 @@ fun tryDistinctUntilChanged() {
             .subscribe { Log.d("WQY", "名字长唯一的球会 : $it") }
 }
 
+fun tryElementAt() {
+    Observable.just("齐达内", "贝克汉姆", "罗纳尔多", "范尼", "舍甫琴科", "因扎吉")
+            .elementAt(3)
+            .subscribe{ Log.d("WQY", "ranked 3 : $it") }
+}
+
 fun trySuppressing() {
     tryFilter()
 
@@ -92,6 +98,7 @@ fun trySuppressing() {
     tryTakeUntil()
 
     tryDistinct()
-
     tryDistinctUntilChanged()
+
+    tryElementAt()
 }
