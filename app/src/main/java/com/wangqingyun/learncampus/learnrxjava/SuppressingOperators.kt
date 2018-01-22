@@ -73,6 +73,12 @@ fun tryDistinct() {
             .subscribe { Log.d("WQY", "名字长唯一的皇帝们 : $it") }
 }
 
+fun tryDistinctUntilChanged() {
+    Observable.just("切尔西", "阿森纳", "热刺", "曼联", "巴萨", "尤文图斯", "皇马", "拜仁", "大巴黎")
+            .distinctUntilChanged { t1, t2 -> t1.length == t2.length }
+            .subscribe { Log.d("WQY", "名字长唯一的球会 : $it") }
+}
+
 fun trySuppressing() {
     tryFilter()
 
@@ -86,4 +92,6 @@ fun trySuppressing() {
     tryTakeUntil()
 
     tryDistinct()
+
+    tryDistinctUntilChanged()
 }
