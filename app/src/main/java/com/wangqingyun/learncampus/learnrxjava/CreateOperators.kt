@@ -30,8 +30,15 @@ fun tryJust() {
             .subscribe { Log.d("WQY", "just : $it") }
 }
 
+fun tryFromIterable() {
+    Observable.fromIterable(listOf("贝肯鲍尔", "穆勒", "克林斯曼", "马特乌斯", "克洛泽"))
+            .subscribe { Log.d("WQY", "from iterable : $it") }
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
     tryJust()
+
+    tryFromIterable()
 }
