@@ -25,6 +25,13 @@ fun tryCreate() {
     emitter?.onNext(17)
 }
 
+fun tryJust() {
+    Observable.just("A", "B", "C")
+            .subscribe { Log.d("WQY", "just : $it") }
+}
+
 fun tryCreateOperators() {
     tryCreate()
+
+    tryJust()
 }
