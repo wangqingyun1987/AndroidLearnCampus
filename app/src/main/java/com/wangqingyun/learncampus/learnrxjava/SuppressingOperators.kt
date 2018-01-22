@@ -67,6 +67,12 @@ fun tryTakeUntil() {
     emitter?.onNext(1)
 }
 
+fun tryDistinct() {
+    Observable.just("刘邦", "光武帝", "诸葛亮", "唐太宗李世民", "成吉思汗", "努尔哈赤")
+            .distinct { it.length }
+            .subscribe { Log.d("WQY", "名字长唯一的皇帝们 : $it") }
+}
+
 fun trySuppressing() {
     tryFilter()
 
@@ -78,4 +84,6 @@ fun trySuppressing() {
     tryTakeWhile()
 
     tryTakeUntil()
+
+    tryDistinct()
 }
