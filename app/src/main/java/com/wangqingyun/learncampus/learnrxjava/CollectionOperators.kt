@@ -26,6 +26,18 @@ fun tryToList() {
             }
 }
 
+fun trySortedList() {
+    Observable.just("Barcelona", "Real Madrid", "Bayern Munich", "AC Milan", "Inter Milan")
+            .toSortedList {
+                o1, o2 -> o1.length - o2.length
+            }
+            .subscribe {
+                list -> Log.d("WQY", "sorted list : $list")
+            }
+}
+
 fun tryCollectionOperators() {
     tryToList()
+
+    trySortedList()
 }
