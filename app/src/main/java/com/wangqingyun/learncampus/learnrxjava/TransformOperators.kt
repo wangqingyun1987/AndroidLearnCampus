@@ -2,6 +2,7 @@ package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
 import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by wangqingyun on 23/01/2018.
@@ -53,6 +54,12 @@ fun trySorted() {
             .subscribe { Log.d("WQY", "sorted : $it") }
 }
 
+fun tryDelay() {
+    Observable.just("Japan", "Germany", "Russia")
+            .delay(1000, TimeUnit.MILLISECONDS)
+            .subscribe { Log.d("WQY", "delay : $it") }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -65,4 +72,6 @@ fun tryTransformOperators() {
     trySwitchIfEmpty()
 
     trySorted()
+
+    tryDelay()
 }
