@@ -30,6 +30,12 @@ fun tryStartWithArray() {
             .subscribe { Log.d("WQY", "大国争霸 : $it") }
 }
 
+fun tryDefaultIfEmpty() {
+    Observable.empty<Int>()
+            .defaultIfEmpty(303)
+            .subscribe { Log.d("WQY", "default if empty : $it") }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -37,4 +43,6 @@ fun tryTransformOperators() {
 
     tryStartWith()
     tryStartWithArray()
+
+    tryDefaultIfEmpty()
 }
