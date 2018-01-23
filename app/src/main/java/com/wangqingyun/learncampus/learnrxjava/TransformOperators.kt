@@ -86,6 +86,12 @@ fun tryRepeat() {
             .subscribe { Log.d("WQY", "repeat item : $it") }
 }
 
+fun tryScan() {
+    Observable.range(1, 5)
+            .scan { accumunlation: Int, next: Int -> accumunlation + next }
+            .subscribe { Log.d("WQY", "scanned accumulation : $it") }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -104,4 +110,6 @@ fun tryTransformOperators() {
     tryDelaySubscription()
 
     tryRepeat()
+
+    tryScan()
 }
