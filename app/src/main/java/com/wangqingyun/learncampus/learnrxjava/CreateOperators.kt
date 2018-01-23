@@ -79,6 +79,18 @@ fun tryNever() {
     })
 }
 
+fun tryError() {
+    Observable.error<String> {
+        NullPointerException("傻逼，NPE啦")
+    }.subscribe({
+        Log.d("WQY", "error onNext : $it")
+    }, {
+        Log.d("WQY", "error onError : ${it.message}")
+    }, {
+        Log.d("WQY", "error onComplete")
+    })
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
@@ -95,4 +107,6 @@ fun tryCreateOperators() {
     tryEmpty()
 
     tryNever()
+
+    tryError()
 }
