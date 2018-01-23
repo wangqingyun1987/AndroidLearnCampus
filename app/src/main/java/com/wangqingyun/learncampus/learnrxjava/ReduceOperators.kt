@@ -44,6 +44,14 @@ fun tryAny() {
             }
 }
 
+fun tryContains() {
+    Observable.range(1, 1000)
+            .contains(777)
+            .subscribe {
+                yes -> Log.d("WQY", "found 777 : $yes")
+            }
+}
+
 fun tryReducingOperators() {
     tryCount()
 
@@ -52,4 +60,6 @@ fun tryReducingOperators() {
     tryAll()
 
     tryAny()
+
+    tryContains()
 }
