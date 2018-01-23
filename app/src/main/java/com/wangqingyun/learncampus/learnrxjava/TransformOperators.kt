@@ -1,4 +1,4 @@
-package com.wangqingyun.learncampus.learnrxjava.transformoperators
+package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
 import io.reactivex.Observable
@@ -13,6 +13,6 @@ fun tryMap() {
             .subscribe { Log.d("WQY", "mapped item: $it") }
 }
 
-fun tryMapOperators() {
+fun tryTransformOperators() {
     tryMap()
 }
