@@ -47,6 +47,12 @@ fun trySwitchIfEmpty() {
             }
 }
 
+fun trySorted() {
+    Observable.just("America", "Asia", "Africa", "Europe", "Australia")
+            .sorted { o1, o2 -> o1.length - o2.length }
+            .subscribe { Log.d("WQY", "sorted : $it") }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -57,4 +63,6 @@ fun tryTransformOperators() {
 
     tryDefaultIfEmpty()
     trySwitchIfEmpty()
+
+    trySorted()
 }
