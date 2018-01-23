@@ -58,6 +58,17 @@ fun tryFromFuture() {
             .subscribe { Log.d("WQY", "今夜值班 : $it") }
 }
 
+fun tryEmpty() {
+    Observable.empty<Int>()
+            .subscribe({
+                Log.d("WQY", "empty onNext : $it")
+            }, {
+                Log.d("WQY", "empty error")
+            }, {
+                Log.d("WQY", "empty onComplete")
+            })
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
@@ -70,4 +81,6 @@ fun tryCreateOperators() {
     tryInterval()
 
     tryFromFuture()
+
+    tryEmpty()
 }
