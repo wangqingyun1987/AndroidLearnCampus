@@ -35,10 +35,17 @@ fun tryFromIterable() {
             .subscribe { Log.d("WQY", "from iterable : $it") }
 }
 
+fun tryRange() {
+    Observable.range(101, 10)
+            .subscribe { Log.d("WQY", "range item : $it") }
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
     tryJust()
 
     tryFromIterable()
+
+    tryRange()
 }
