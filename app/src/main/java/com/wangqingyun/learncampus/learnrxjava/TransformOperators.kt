@@ -13,6 +13,13 @@ fun tryMap() {
             .subscribe { Log.d("WQY", "mapped item: $it") }
 }
 
+fun tryCast() {
+    Observable.just("A", "B")
+            .cast(Any::class.java).subscribe()
+}
+
 fun tryTransformOperators() {
     tryMap()
+
+    tryCast()
 }
