@@ -18,6 +18,18 @@ fun tryCount() {
             }
 }
 
+fun tryReduce() {
+    Observable.range(1, 1000)
+            .reduce {
+                accum: Int, next: Int -> accum + next
+            }
+            .subscribe {
+                Log.d("WQY", "sum of 1 to 1000 is : $it")
+            }
+}
+
 fun tryReducingOperators() {
     tryCount()
+
+    tryReduce()
 }
