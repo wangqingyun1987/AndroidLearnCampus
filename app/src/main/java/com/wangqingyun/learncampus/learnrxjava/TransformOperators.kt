@@ -72,6 +72,14 @@ fun tryDelay2() {
     }
 }
 
+fun tryDelaySubscription() {
+    Observable.just("A", "B", "C").delaySubscription<String> (
+        Observable.just("A").delay(2, TimeUnit.SECONDS)
+    ).subscribe {
+        Log.d("WQY", "delay subscription : $it")
+    }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -87,4 +95,5 @@ fun tryTransformOperators() {
 
     tryDelay()
     tryDelay2()
+    tryDelaySubscription()
 }
