@@ -80,6 +80,12 @@ fun tryDelaySubscription() {
     }
 }
 
+fun tryRepeat() {
+    Observable.just("India", "Brazil", "Egypt")
+            .repeat(2)
+            .subscribe { Log.d("WQY", "repeat item : $it") }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -96,4 +102,6 @@ fun tryTransformOperators() {
     tryDelay()
     tryDelay2()
     tryDelaySubscription()
+
+    tryRepeat()
 }
