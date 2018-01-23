@@ -36,10 +36,20 @@ fun tryAll() {
             }
 }
 
+fun tryAny() {
+    Observable.just(100, 17, 98, 16, 22)
+            .any { it % 3 == 0 }
+            .subscribe {
+                yes -> Log.d("WQY", "found 3 : $yes")
+            }
+}
+
 fun tryReducingOperators() {
     tryCount()
 
     tryReduce()
 
     tryAll()
+
+    tryAny()
 }
