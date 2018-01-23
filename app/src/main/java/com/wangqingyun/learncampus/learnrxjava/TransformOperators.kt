@@ -60,6 +60,18 @@ fun tryDelay() {
             .subscribe { Log.d("WQY", "delay : $it") }
 }
 
+fun tryDelay2() {
+    var count = 1
+
+    Observable.just("BMW", "Mercedes", "Audi").delay {
+        val ob = Observable.just(it).delay((500 * count).toLong(), TimeUnit.MILLISECONDS)
+        count += 2
+        ob
+    }.subscribe {
+        Log.d("WQY", "delayed per item : $it")
+    }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -74,4 +86,5 @@ fun tryTransformOperators() {
     trySorted()
 
     tryDelay()
+    tryDelay2()
 }
