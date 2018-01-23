@@ -36,6 +36,17 @@ fun tryDefaultIfEmpty() {
             .subscribe { Log.d("WQY", "default if empty : $it") }
 }
 
+fun trySwitchIfEmpty() {
+    Observable.just("China", "Japan", "Korea")
+            .filter { it.startsWith("z") }
+            .switchIfEmpty(
+                    Observable.just("Russia", "Germany", "France")
+            )
+            .subscribe {
+                Log.d("WQY", "mitigation countries : $it")
+            }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
@@ -45,4 +56,5 @@ fun tryTransformOperators() {
     tryStartWithArray()
 
     tryDefaultIfEmpty()
+    trySwitchIfEmpty()
 }
