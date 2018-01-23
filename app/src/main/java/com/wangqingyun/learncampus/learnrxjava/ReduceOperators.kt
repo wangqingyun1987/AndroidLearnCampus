@@ -28,8 +28,18 @@ fun tryReduce() {
             }
 }
 
+fun tryAll() {
+    Observable.just("India", "France", "Russia")
+            .all { !it.startsWith("A") }
+            .subscribe {
+                yes -> Log.d("WQY", "all passed : $yes")
+            }
+}
+
 fun tryReducingOperators() {
     tryCount()
 
     tryReduce()
+
+    tryAll()
 }
