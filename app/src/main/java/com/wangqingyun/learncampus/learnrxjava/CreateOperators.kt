@@ -3,6 +3,8 @@ package com.wangqingyun.learncampus.learnrxjava
 import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 /**
@@ -46,6 +48,16 @@ fun tryInterval() {
             .subscribe { Log.d("WQY", "interval item : $it") }
 }
 
+fun tryFromFuture() {
+    val executor = Executors.newSingleThreadExecutor()
+    val task = Callable<String> {
+        return@Callable "羽林卫"
+    }
+
+    Observable.fromFuture(executor.submit(task))
+            .subscribe { Log.d("WQY", "今夜值班 : $it") }
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
@@ -56,4 +68,6 @@ fun tryCreateOperators() {
     tryRange()
 
     tryInterval()
+
+    tryFromFuture()
 }
