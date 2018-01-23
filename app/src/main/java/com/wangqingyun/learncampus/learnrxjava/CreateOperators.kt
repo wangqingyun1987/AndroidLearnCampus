@@ -109,6 +109,14 @@ fun tryDefer() {
     }
 }
 
+fun tryFromCallable() {
+    Observable.fromCallable<String> {
+        return@fromCallable "钦差提督东厂办事太监"
+    }.subscribe {
+        Log.d("WQY", "官名是 : $it")
+    }
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
@@ -129,4 +137,6 @@ fun tryCreateOperators() {
     tryError()
 
     tryDefer()
+
+    tryFromCallable()
 }
