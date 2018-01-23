@@ -69,6 +69,16 @@ fun tryEmpty() {
             })
 }
 
+fun tryNever() {
+    Observable.never<Int>().subscribe({
+        Log.d("WQY", "never onNext")
+    }, {
+        Log.d("WQY", "never onError")
+    }, {
+        Log.d("WQY", "never onComplete")
+    })
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
@@ -83,4 +93,6 @@ fun tryCreateOperators() {
     tryFromFuture()
 
     tryEmpty()
+
+    tryNever()
 }
