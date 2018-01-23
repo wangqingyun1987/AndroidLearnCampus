@@ -3,6 +3,7 @@ package com.wangqingyun.learncampus.learnrxjava
 import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by wangqingyun on 22/01/2018.
@@ -40,6 +41,11 @@ fun tryRange() {
             .subscribe { Log.d("WQY", "range item : $it") }
 }
 
+fun tryInterval() {
+    Observable.interval(300, TimeUnit.MILLISECONDS)
+            .subscribe { Log.d("WQY", "interval item : $it") }
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
@@ -48,4 +54,6 @@ fun tryCreateOperators() {
     tryFromIterable()
 
     tryRange()
+
+    tryInterval()
 }
