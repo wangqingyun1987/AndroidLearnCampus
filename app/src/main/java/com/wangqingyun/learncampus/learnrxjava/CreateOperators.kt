@@ -91,6 +91,24 @@ fun tryError() {
     })
 }
 
+fun tryDefer() {
+    var name = "巴塞罗那"
+
+    val observable = Observable.defer {
+        Observable.just(name)
+    }
+
+    observable.subscribe {
+        Log.d("WQY", "defer 1 : $it")
+    }
+
+    name = "皇家马德里"
+
+    observable.subscribe {
+        Log.d("WQY", "defer 2 : $it")
+    }
+}
+
 fun tryCreateOperators() {
     tryCreate()
 
@@ -109,4 +127,6 @@ fun tryCreateOperators() {
     tryNever()
 
     tryError()
+
+    tryDefer()
 }
