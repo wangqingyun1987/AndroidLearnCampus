@@ -18,8 +18,23 @@ fun tryCast() {
             .cast(Any::class.java).subscribe()
 }
 
+fun tryStartWith() {
+    Observable.just("Chelsea", "Man City", "Man Utd")
+            .startWith("Liverpool")
+            .subscribe { Log.d("WQY", "Premier league team: $it") }
+}
+
+fun tryStartWithArray() {
+    Observable.just("赵国", "魏国", "齐国")
+            .startWithArray("秦国", "楚国")
+            .subscribe { Log.d("WQY", "大国争霸 : $it") }
+}
+
 fun tryTransformOperators() {
     tryMap()
 
     tryCast()
+
+    tryStartWith()
+    tryStartWithArray()
 }
