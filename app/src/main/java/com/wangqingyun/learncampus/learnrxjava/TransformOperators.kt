@@ -90,6 +90,12 @@ fun tryScan() {
     Observable.range(1, 5)
             .scan { accumunlation: Int, next: Int -> accumunlation + next }
             .subscribe { Log.d("WQY", "scanned accumulation : $it") }
+
+    Observable.range(1, 5).scan(0) {
+        accum, next -> accum + 1
+    }.subscribe {
+        Log.d("WQY", "scan count : $it")
+    }
 }
 
 fun tryTransformOperators() {
