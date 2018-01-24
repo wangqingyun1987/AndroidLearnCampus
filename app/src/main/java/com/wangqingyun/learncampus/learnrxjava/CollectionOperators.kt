@@ -36,8 +36,27 @@ fun trySortedList() {
             }
 }
 
+fun tryToMap() {
+    Observable.just("Paris", "London", "Berlin", "Milan", "Madrid", "Rome")
+            .toMap { it.length }
+            .subscribe {
+                map -> Log.d("WQY", "toMap: $map")
+            }
+}
+
+fun tryToMultiMap() {
+    Observable.just("Beijing", "Shenzhen", "Shanghai", "Guangzhou", "Tianjin", "Nanjing")
+            .toMultimap { it.length }
+            .subscribe {
+                map -> Log.d("WQY", "toMultiMap : $map")
+            }
+}
+
 fun tryCollectionOperators() {
     tryToList()
 
     trySortedList()
+
+    tryToMap()
+    tryToMultiMap()
 }
