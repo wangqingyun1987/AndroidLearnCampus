@@ -52,6 +52,18 @@ fun tryToMultiMap() {
             }
 }
 
+fun tryCollect() {
+    Observable.just("India", "Denmark", "Japan", "Korea", "Brazil", "Germany")
+            .collect({
+                hashSetOf<Int>()
+            }, {
+                set, next -> set.add(next.length)
+            })
+            .subscribe {
+                set -> Log.d("WQY", "collect set : $set")
+            }
+}
+
 fun tryCollectionOperators() {
     tryToList()
 
@@ -59,4 +71,6 @@ fun tryCollectionOperators() {
 
     tryToMap()
     tryToMultiMap()
+
+    tryCollect()
 }
