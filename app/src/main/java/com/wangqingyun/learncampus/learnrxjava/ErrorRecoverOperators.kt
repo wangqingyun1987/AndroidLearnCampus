@@ -53,10 +53,23 @@ fun tryOnErrorReturn() {
             }
 }
 
+fun tryOnErrorResumeNext() {
+    Observable.just(10, 20, 0, 50, 20)
+            .map { 1000 / it }
+            .onErrorResumeNext(
+                    Observable.just(100, 200, 300)
+            )
+            .subscribe {
+                Log.d("WQY", "on-error-resume-next : $it")
+            }
+}
+
 fun tryErrorRecoverOperators() {
     tryErrorCondition()
     tryCatchTheError()
 
     tryOnErrorReturnItem()
     tryOnErrorReturn()
+
+    tryOnErrorResumeNext()
 }
