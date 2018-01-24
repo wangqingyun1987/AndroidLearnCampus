@@ -33,7 +33,30 @@ fun tryCatchTheError() {
             })
 }
 
+fun tryOnErrorReturnItem() {
+    Observable.just(3, 0, 1)
+            .map { 10 / it }
+            .onErrorReturnItem(-22)
+            .subscribe {
+                Log.d("WQY", "on-error-return-item received : $it")
+            }
+}
+
+fun tryOnErrorReturn() {
+    Observable.just(3, 2, 1, 0, 5, 4)
+            .map { 10 / it }
+            .onErrorReturn {
+                it.hashCode()
+            }
+            .subscribe {
+                Log.d("WQY", "on-error-return : $it")
+            }
+}
+
 fun tryErrorRecoverOperators() {
     tryErrorCondition()
     tryCatchTheError()
+
+    tryOnErrorReturnItem()
+    tryOnErrorReturn()
 }
