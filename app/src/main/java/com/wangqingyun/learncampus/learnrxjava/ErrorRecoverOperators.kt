@@ -2,6 +2,7 @@ package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 
 /**
  * Created by wangqingyun on 24/01/2018.
@@ -76,6 +77,26 @@ fun tryRetry() {
             })
 }
 
+fun tryRetryWhen() {
+    Observable.just(3, 0, 2)
+            .map { 6 / it }
+            .retryWhen {
+                it.zipWith<Int, Int>(Observable.range(1, 10), BiFunction { _, t2 -> t2})
+            }
+            .reduce { t1: Int, t2: Int -> t1 + t2 }
+            .subscribe(
+                {
+                    Log.d("WQY", "retry-when received : $it")
+                },
+                {
+                    Log.d("WQY", "retry-when error : ${it.message}")
+                },
+                {
+                    Log.d("WQY", "on complete")
+                }
+            )
+}
+
 fun tryErrorRecoverOperators() {
     tryErrorCondition()
     tryCatchTheError()
@@ -86,4 +107,5 @@ fun tryErrorRecoverOperators() {
     tryOnErrorResumeNext()
 
     tryRetry()
+    tryRetryWhen()
 }
