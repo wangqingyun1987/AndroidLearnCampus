@@ -17,6 +17,23 @@ fun tryErrorCondition() {
             })
 }
 
+fun tryCatchTheError() {
+    Observable.just(5, 4, 0, 101, 99)
+            .map {
+                try {
+                    return@map 1000 / it
+                } catch (e : Throwable) {
+                    return@map -1000
+                }
+            }
+            .subscribe({
+                Log.d("WQY", "catch received : $it")
+            }, {
+                Log.d("WQY", "error received : ${it.message}")
+            })
+}
+
 fun tryErrorRecoverOperators() {
     tryErrorCondition()
+    tryCatchTheError()
 }
