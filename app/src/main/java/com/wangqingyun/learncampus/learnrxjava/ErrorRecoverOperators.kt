@@ -64,6 +64,18 @@ fun tryOnErrorResumeNext() {
             }
 }
 
+fun tryRetry() {
+    Observable.just(2, 4, 5, 0, 10, 20)
+            .map { 100 / it }
+            .retry(2)
+            .onErrorReturnItem(-10001)
+            .subscribe({
+                Log.d("WQY", "retry received : $it")
+            }, {
+                Log.d("WQY", "retry error : ${it.message}")
+            })
+}
+
 fun tryErrorRecoverOperators() {
     tryErrorCondition()
     tryCatchTheError()
@@ -72,4 +84,6 @@ fun tryErrorRecoverOperators() {
     tryOnErrorReturn()
 
     tryOnErrorResumeNext()
+
+    tryRetry()
 }
