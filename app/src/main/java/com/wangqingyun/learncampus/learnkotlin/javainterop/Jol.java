@@ -24,4 +24,10 @@ public class Jol {
         int weight = kol.getWeight();
         int height = kol.height;
     }
+
+    public static void tryJvmName() {
+        Kol kol = new Kol();
+        String hair = kol.getHair();
+        String hairProperty = kol.getHairProperty();
+    }
 }

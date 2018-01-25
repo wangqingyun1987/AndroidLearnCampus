@@ -31,4 +31,9 @@ class Kol {
 
     @JvmField
     val height = 180
+
+    val hair: String
+        @JvmName("getHairProperty")
+        get() = "Brown"
+    fun getHair() = "Black"
 }
