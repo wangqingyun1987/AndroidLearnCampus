@@ -14,6 +14,21 @@ fun tryDoOnNext() {
             .subscribe { Log.d("WQY", "received : $it") }
 }
 
+fun tryDoOnComplete() {
+    Observable.just("Ronaldo", "Beckham", "Zidanei")
+            .doOnComplete {
+                Log.d("WQY", "do on complete")
+            }
+            .subscribe({
+                Log.d("WQY", "received : $it")
+            }, {
+                Log.d("WQY", "error : ${it.message}")
+            }, {
+                Log.d("WQY", "on complete")
+            })
+}
+
 fun tryDoOnOperators() {
     tryDoOnNext()
+    tryDoOnComplete()
 }
