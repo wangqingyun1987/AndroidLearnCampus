@@ -92,7 +92,7 @@ fun tryDoOnDispose() {
     }).start()
 }
 
-fun tryDoFinallY() {
+fun tryDoFinally() {
     Observable.just("Barcelona", "Real Madrid", "Juventus")
             .doFinally {
                 Log.d("WQY", "do finally")
@@ -113,5 +113,5 @@ fun tryDoOnOperators() {
     tryDoOnSubscribe()
     tryDoOnDispose()
 
-    tryDoFinallY()
+    tryDoFinally()
 }
