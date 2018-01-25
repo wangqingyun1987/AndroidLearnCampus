@@ -2,6 +2,8 @@ package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
 import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
+import io.reactivex.functions.Function
 
 /**
  * Created by wangqingyun on 25/01/2018.
@@ -56,10 +58,45 @@ fun tryDoOnSubscribe() {
             }
 }
 
+fun tryDoOnDispose() {
+    val dispose = Observable.just(10, 20, 30, 40, 50)
+            .doOnDispose {
+                Log.d("WQY", "do on dispose after just")
+            }
+            .map(object : Function<Int, Pair<Int, Int>> {
+                var count = 0
+                override fun apply(t: Int): Pair<Int, Int> {
+                    return Pair(t, count++)
+                }
+            })
+            .doOnDispose {
+                Log.d("WQY", "do on dispose after map")
+            }
+            .delay {
+                Observable.just(0).delay(it.second.toLong(), TimeUnit.SECONDS)
+            }
+            .doOnDispose {
+                Log.d("WQY", "do on dispose after delay")
+            }
+            .map { it.first }
+            .doOnDispose {
+                Log.d("WQY", "do on dispose after map back")
+            }
+            .subscribe {
+                Log.d("WQY", "Received : $ $it")
+            }
+
+    Thread(Runnable {
+        Thread.sleep(3000)
+        dispose.dispose()
+    }).start()
+}
+
 fun tryDoOnOperators() {
     tryDoOnNext()
     tryDoOnComplete()
     tryDoOnError()
 
     tryDoOnSubscribe()
+    tryDoOnDispose()
 }
