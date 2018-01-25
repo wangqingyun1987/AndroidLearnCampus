@@ -2,6 +2,7 @@ package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 import io.reactivex.functions.Function
 
@@ -14,6 +15,19 @@ fun tryDoOnNext() {
             .doOnNext { Log.d("WQY", "do on next : $it") }
             .map { it.length }
             .subscribe { Log.d("WQY", "received : $it") }
+}
+
+/**
+ * for Maybe and Single, doOnSuccess instead of doOnNext
+ * */
+fun tryDoOnSuccess() {
+    Single.just("A").doOnSuccess {
+        Log.d("WQY", "do on success : $it")
+    }.subscribe({
+        Log.d("WQY", "received : $it")
+    }, {
+        Log.d("WQY", "error : ${it.message}")
+    })
 }
 
 fun tryDoOnComplete() {
@@ -107,6 +121,7 @@ fun tryDoFinally() {
 
 fun tryDoOnOperators() {
     tryDoOnNext()
+    tryDoOnSuccess()
     tryDoOnComplete()
     tryDoOnError()
 
