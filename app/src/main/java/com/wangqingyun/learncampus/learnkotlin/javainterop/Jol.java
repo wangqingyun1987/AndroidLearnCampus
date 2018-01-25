@@ -10,6 +10,7 @@ public class Jol {
         String attri = Kobj.attri;
          */
         int count = Kobj.count;
+        int member = Kobj.getMember();
 
         String name = Kol.Companion.getName();
         String gender = Kol.gender;

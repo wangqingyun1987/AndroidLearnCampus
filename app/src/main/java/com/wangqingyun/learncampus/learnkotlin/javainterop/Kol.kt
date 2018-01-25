@@ -9,6 +9,9 @@ object Kobj {
 
     @JvmField
     val count = 10
+
+    @JvmStatic
+    val member = 101
 }
 
 class Kol {
