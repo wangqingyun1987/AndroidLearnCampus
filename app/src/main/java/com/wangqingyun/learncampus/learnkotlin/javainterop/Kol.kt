@@ -37,3 +37,9 @@ class Kol {
         get() = "Brown"
     fun getHair() = "Black"
 }
+
+data class Kdata @JvmOverloads constructor(
+        val name: String,
+        val gender: String = "Male",
+        val nationality: String = "China"
+)

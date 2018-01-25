@@ -30,4 +30,10 @@ public class Jol {
         String hair = kol.getHair();
         String hairProperty = kol.getHairProperty();
     }
+
+    public static void tryJvmOverloads() {
+        new Kdata("WANG");
+        new Kdata("Zhang", "Female");
+        new Kdata("Li", "Female", "Korea");
+    }
 }
