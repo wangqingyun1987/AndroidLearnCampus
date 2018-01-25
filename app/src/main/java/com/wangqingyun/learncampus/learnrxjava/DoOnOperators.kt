@@ -42,8 +42,24 @@ fun tryDoOnError() {
             })
 }
 
+fun tryDoOnSubscribe() {
+    Observable.just(1)
+            .doOnSubscribe {
+                Log.d("WQY", "doOnSubscribe after just")
+            }
+            .map { it * 10 }
+            .doOnSubscribe {
+                Log.d("WQY", "doOnSubscribe after map")
+            }
+            .subscribe {
+                Log.d("WQY", "received : $it")
+            }
+}
+
 fun tryDoOnOperators() {
     tryDoOnNext()
     tryDoOnComplete()
     tryDoOnError()
+
+    tryDoOnSubscribe()
 }
