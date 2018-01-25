@@ -92,6 +92,19 @@ fun tryDoOnDispose() {
     }).start()
 }
 
+fun tryDoFinallY() {
+    Observable.just("Barcelona", "Real Madrid", "Juventus")
+            .doFinally {
+                Log.d("WQY", "do finally")
+            }
+            .map {
+                it.length
+            }
+            .subscribe {
+                Log.d("WQY", "received : $it")
+            }
+}
+
 fun tryDoOnOperators() {
     tryDoOnNext()
     tryDoOnComplete()
@@ -99,4 +112,6 @@ fun tryDoOnOperators() {
 
     tryDoOnSubscribe()
     tryDoOnDispose()
+
+    tryDoFinallY()
 }
