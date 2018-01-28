@@ -24,6 +24,22 @@ fun tryMerge() {
             }
 }
 
+fun tryMergeArray() {
+    val array = arrayOf(
+            Observable.just("BJ", "SZ"),
+            Observable.just("SG", "KL"),
+            Observable.just("Sydney", "Melbourne"),
+            Observable.just("New York", "LA"),
+            Observable.just("Paris", "Berlin")
+    )
+
+    Observable.mergeArray(*array)
+            .subscribe {
+                Log.d("WQY", "city array : $it")
+            }
+}
+
 fun tryMergeOperators() {
     tryMerge()
+    tryMergeArray()
 }
