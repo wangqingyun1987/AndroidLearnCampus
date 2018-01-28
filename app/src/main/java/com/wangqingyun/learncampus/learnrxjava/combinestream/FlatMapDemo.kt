@@ -19,6 +19,19 @@ fun tryFlatMapAssociate() {
             }
 }
 
+fun tryFlatMapIterable() {
+    Observable.just("London", "Madrid", "Moscow")
+            .flatMapIterable {
+                it.split("")
+            }
+            .filter { it.isNotEmpty() }
+            .subscribe {
+                Log.d("WQY", "flatMapIterable : $it")
+            }
+}
+
 fun tryFlatMap() {
     tryFlatMapAssociate()
+
+    tryFlatMapIterable()
 }
