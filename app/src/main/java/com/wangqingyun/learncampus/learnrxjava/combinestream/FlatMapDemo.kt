@@ -1,8 +1,10 @@
 package com.wangqingyun.learncampus.learnrxjava.combinestream
 
 import android.util.Log
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by wangqingyun on 28/01/2018.
@@ -45,10 +47,24 @@ fun tryFlatMapSingle() {
             }
 }
 
+fun tryFlatMapComplatable() {
+    Observable.just("Football", "Tennis", "Cricket")
+            .map { 0 }
+            .scan { count: Int, next: Int -> count + 1 }
+            .flatMapCompletable {
+                Completable.timer((it + 1).toLong(), TimeUnit.SECONDS)
+            }
+            .subscribe {
+                Log.d("WQY", "completed")
+            }
+}
+
 fun tryFlatMap() {
     tryFlatMapAssociate()
 
     tryFlatMapIterable()
 
     tryFlatMapSingle()
+
+    tryFlatMapComplatable()
 }
