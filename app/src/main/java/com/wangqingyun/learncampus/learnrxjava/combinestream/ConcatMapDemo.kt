@@ -21,6 +21,12 @@ fun tryConcatMap() {
             }
 }
 
+/**
+ * difference between concatMap and concatMapEager
+ *  concatMap:      subscribe to one observable and wait it to finish and then subscribe to next
+ *  concatMapEager: subscribe to all observables and put their emission into cache and pass down
+ *                  emissions from observables one observable after another
+ * */
 fun tryConcatMapEager() {
     Observable.just(100, 10, 30, 120)
             .concatMapEager {
