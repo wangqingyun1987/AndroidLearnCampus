@@ -2,6 +2,7 @@ package com.wangqingyun.learncampus.learnrxjava.combinestream
 
 import android.util.Log
 import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by wangqingyun on 28/01/2018.
@@ -13,6 +14,17 @@ fun tryMerge() {
             Observable.just("Ronaldinho", "Vanni")
     ).subscribe {
         Log.d("WQY", "merge factory : $it")
+    }
+
+    Observable.merge(
+            Observable.interval(500, TimeUnit.MILLISECONDS)
+                    .map { "A-$it" }
+                    .take(3),
+            Observable.interval(200, TimeUnit.MILLISECONDS)
+                    .map { "B-$it" }
+                    .take(5)
+    ).subscribe {
+        Log.d("WQY", "merged with interval : $it")
     }
 
     Observable.just("London", "Manchester", "Birmingham")
