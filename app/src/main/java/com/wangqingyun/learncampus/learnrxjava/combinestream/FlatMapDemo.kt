@@ -20,6 +20,10 @@ fun tryFlatMapAssociate() {
             }
 }
 
+/**
+ * what flatMapIterable actually does is it turns each emission from source observable into an iterable,
+ * and then pass each item of the iterable down the stream
+ * */
 fun tryFlatMapIterable() {
     Observable.just("London", "Madrid", "Moscow")
             .flatMapIterable {
