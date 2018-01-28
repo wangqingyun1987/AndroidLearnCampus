@@ -2,6 +2,7 @@ package com.wangqingyun.learncampus.learnrxjava.combinestream
 
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function
 import java.util.concurrent.TimeUnit
 
@@ -37,6 +38,25 @@ fun tryCombineLatest() {
     }
 }
 
+fun tryWithLatestFrom() {
+    Observable.interval(300, TimeUnit.MILLISECONDS)
+            .take(10)
+            .map { "A-$it" }
+            .withLatestFrom(
+                Observable.interval(500, TimeUnit.MILLISECONDS)
+                        .take(6)
+                        .map { "B-$it" },
+                    BiFunction<String, String, String> {
+                        t1, t2 -> "$t1, $t2"
+                    }
+            )
+            .subscribe {
+                Log.d("WQY", "received : $it")
+            }
+}
+
 fun demoCombineLatest() {
     tryCombineLatest()
+
+    tryWithLatestFrom()
 }
