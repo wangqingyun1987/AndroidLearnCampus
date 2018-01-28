@@ -2,6 +2,7 @@ package com.wangqingyun.learncampus.learnrxjava.combinestream
 
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * Created by wangqingyun on 28/01/2018.
@@ -30,8 +31,20 @@ fun tryFlatMapIterable() {
             }
 }
 
+fun tryFlatMapSingle() {
+    Observable.just("Beijing", "Shenzhen", "Chengdu")
+            .flatMapSingle {
+                seq -> Single.just("A").map { "$it-$seq-$it" }
+            }
+            .subscribe {
+                Log.d("WQY", "flat map single : $it")
+            }
+}
+
 fun tryFlatMap() {
     tryFlatMapAssociate()
 
     tryFlatMapIterable()
+
+    tryFlatMapSingle()
 }
