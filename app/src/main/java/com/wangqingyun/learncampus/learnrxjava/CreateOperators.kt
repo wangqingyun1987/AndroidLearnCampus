@@ -38,6 +38,13 @@ fun tryFromIterable() {
             .subscribe { Log.d("WQY", "from iterable : $it") }
 }
 
+fun tryFromArray() {
+    Observable.fromArray("Chelsea", "Arsenal", "Man City", "Man Utd")
+            .subscribe {
+                Log.d("WQY", "letters found in Alibaba : $it")
+            }
+}
+
 fun tryRange() {
     Observable.range(101, 10)
             .subscribe { Log.d("WQY", "range item : $it") }
@@ -123,6 +130,7 @@ fun tryCreateOperators() {
     tryJust()
 
     tryFromIterable()
+    tryFromArray()
 
     tryRange()
 
