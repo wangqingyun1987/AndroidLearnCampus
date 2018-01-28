@@ -39,7 +39,22 @@ fun tryMergeArray() {
             }
 }
 
+fun tryMergeIterable() {
+    val list = listOf<Observable<String>>(
+            Observable.just("A", "B"),
+            Observable.just("1", "101"),
+            Observable.just("donkey", "horse")
+    )
+
+    Observable.merge(list)
+            .subscribe {
+                Log.d("WQY", "merge iterable : $it")
+            }
+}
+
 fun tryMergeOperators() {
     tryMerge()
     tryMergeArray()
+
+    tryMergeIterable()
 }
