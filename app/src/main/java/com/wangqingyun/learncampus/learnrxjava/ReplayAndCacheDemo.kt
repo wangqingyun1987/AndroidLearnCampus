@@ -1,4 +1,4 @@
-package com.wangqingyun.learncampus.learnrxjava.multicast
+package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
 import io.reactivex.Completable
