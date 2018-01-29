@@ -46,7 +46,31 @@ fun tryReplayWithBufferSize() {
             }
 }
 
+fun tryReplayWithConnectAndRefCount() {
+    val sourceAuto = Observable.range(1, 3).replay(1).autoConnect()
+
+    sourceAuto.subscribe {
+        Log.d("WQY", "Auto A : $it")
+    }
+
+    sourceAuto.subscribe {
+        Log.d("WQY", "Auto B : $it")
+    }
+
+    val sourceRef = Observable.range(100, 3).replay(1).refCount()
+
+    sourceRef.subscribe {
+        Log.d("WQY", "Ref A : $it")
+    }
+
+    sourceRef.subscribe {
+        Log.d("WQY", "Ref B : $it")
+    }
+}
+
 fun demoReplayAndCache() {
     tryReplay()
     tryReplayWithBufferSize()
+
+    tryReplayWithConnectAndRefCount()
 }
