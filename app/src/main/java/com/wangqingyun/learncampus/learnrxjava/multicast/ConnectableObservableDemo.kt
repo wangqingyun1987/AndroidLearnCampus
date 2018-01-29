@@ -68,18 +68,16 @@ fun tryShare() {
         Log.d("WQY", "X : $it")
     }
 
-    Thread(Runnable {
-        Thread.sleep(120)
-        connectable.subscribe {
-            Log.d("WQY", "Y : $it")
-        }
-    }).start()
+    Completable.timer(120, TimeUnit.MILLISECONDS)
+            .andThen(connectable)
+            .subscribe {
+                Log.d("WQY", "Y : $it")
+            }
 
     Completable.timer(500, TimeUnit.MILLISECONDS)
+            .andThen(connectable)
             .subscribe {
-                connectable.subscribe {
-                    Log.d("WQY", "Z : $it")
-                }
+                Log.d("WQY", "Z : $it")
             }
 }
 
