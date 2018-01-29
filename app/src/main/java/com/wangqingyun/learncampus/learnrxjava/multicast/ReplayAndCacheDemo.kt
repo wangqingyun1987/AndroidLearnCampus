@@ -4,6 +4,7 @@ import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.observables.ConnectableObservable
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -68,9 +69,24 @@ fun tryReplayWithConnectAndRefCount() {
     }
 }
 
+fun tryCache() {
+    val source = Observable.range(1, 3)
+            .map { Math.abs(Random().nextInt()) % 10000 }
+            .cache()
+
+    source.subscribe {
+        Log.d("WQY", "first : $it")
+    }
+
+    source.subscribe {
+        Log.d("WQY", "second : $it")
+    }
+}
+
 fun demoReplayAndCache() {
     tryReplay()
     tryReplayWithBufferSize()
-
     tryReplayWithConnectAndRefCount()
+
+    tryCache()
 }
