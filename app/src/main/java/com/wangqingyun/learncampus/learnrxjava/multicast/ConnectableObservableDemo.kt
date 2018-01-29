@@ -23,6 +23,22 @@ fun tryConnectableObservable() {
     connectable.connect()
 }
 
+fun tryAutoConnect() {
+    val map = mapOf(
+            1 to "Paris",
+            2 to "London",
+            3 to "Melbourne"
+    )
+
+    val connectable = Observable.range(1,3).map { map[it] ?: "None" }.publish()
+            .autoConnect(2)
+
+    connectable.map { "Upper stream $it" }.subscribe { Log.d("WQY", "A : $it") }
+    connectable.subscribe { Log.d("WQY", "B : $it") }
+}
+
 fun demoConnectableObservable() {
     tryConnectableObservable()
+
+    tryAutoConnect()
 }
