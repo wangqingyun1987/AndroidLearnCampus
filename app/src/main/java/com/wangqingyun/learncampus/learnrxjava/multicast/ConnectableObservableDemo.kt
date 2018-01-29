@@ -46,19 +46,17 @@ fun tryRefCount() {
         Log.d("WQY", "A : $it")
     }
 
-    Thread(Runnable {
-        Thread.sleep(300)
-        connectable.subscribe {
-            Log.d("WQY", "B : $it")
-        }
-    }).start()
+    Completable.timer(300, TimeUnit.MILLISECONDS)
+            .andThen(connectable)
+            .subscribe {
+                Log.d("WQY", "B : $it")
+            }
 
-    Thread(Runnable {
-        Thread.sleep(1000)
-        connectable.subscribe {
-            Log.d("WQY", "C : $it")
-        }
-    }).start()
+    Completable.timer(1000, TimeUnit.MILLISECONDS)
+            .andThen(connectable)
+            .subscribe {
+                Log.d("WQY", "C : $it")
+            }
 }
 
 fun tryShare() {
