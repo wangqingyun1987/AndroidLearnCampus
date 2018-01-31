@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 fun tryReplay() {
     val connectable: ConnectableObservable<Long> = Observable.interval(100, TimeUnit.MILLISECONDS)
-            .take(10)
+            .take(4)
             .replay()
 
     val source = connectable.autoConnect()
@@ -22,11 +22,19 @@ fun tryReplay() {
         Log.d("WQY", "Uppper : $it")
     }
 
-    Completable.timer(500, TimeUnit.MILLISECONDS)
+    Completable.timer(210, TimeUnit.MILLISECONDS)
             .andThen(source)
             .subscribe {
                 Log.d("WQY", "Lower : $it")
             }
+
+    Completable.timer(600, TimeUnit.MILLISECONDS)
+            .andThen(source)
+            .subscribe({
+                Log.d("WQY", "Last : $it")
+            }, {}, {
+                Log.d("WQY", "Last complete")
+            })
 }
 
 fun tryReplayWithBufferSize() {
