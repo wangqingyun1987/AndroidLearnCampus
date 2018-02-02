@@ -16,6 +16,7 @@ fun trySwitchMap() {
                 key ->
                 Observable.interval(30, TimeUnit.MILLISECONDS)
                         .take(5)
+                        .map { it + 1 }
                         .map { "$key -> $it" }
             }
             .subscribe {
