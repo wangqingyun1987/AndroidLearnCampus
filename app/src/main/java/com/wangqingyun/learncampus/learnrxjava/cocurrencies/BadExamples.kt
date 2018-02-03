@@ -15,9 +15,12 @@ import java.util.concurrent.TimeUnit
  */
 
 /**
- * because we flatmap each item to a interval, each of which will perform on a different thread,
- *      then all are entangled, to solve this, we can observeOn(Schedulers.from(Executors.newSingleThreadPool())
- *      at end of obA and obB
+ * because we flatmap each item to an interval(), each of which will be scheduled onto computation() thread pool,
+ *      but at the same time second observable observeOn computation() as well (i.e. having its runnables
+ *      posted onto computation() thread pool), then this could happen:
+ *          interval() task posted on to computation() for "B" can be the on same thread currently waiting in map(which is sleeping),
+ *          so "C" can actually be emitted prio to "B", so result can be unexpected
+ *      to solve this, we can observeOn(Schedulers.from(Executors.newSingleThreadPool()) at end of obA and obB
  * */
 fun tryZipMultipleThreadedStreams() {
     val obA = Observable.just("A", "B", "C", "D", "E")
@@ -27,6 +30,7 @@ fun tryZipMultipleThreadedStreams() {
                     return Observable.interval((++count * 1000).toLong(), TimeUnit.MILLISECONDS).take(1).map { t }
                 }
             })
+            .observeOn(Schedulers.io())
 //            .observeOn(Schedulers.from(Executors.newSingleThreadExecutor()))
 
     val obB = Observable.range(1, 5)
@@ -35,6 +39,7 @@ fun tryZipMultipleThreadedStreams() {
                 override fun apply(t: Int): Observable<Int> =
                         Observable.interval((++count * 1200).toLong(), TimeUnit.MILLISECONDS).take(1).map { t }
             })
+            .observeOn(Schedulers.computation())
 //            .observeOn(Schedulers.from(Executors.newSingleThreadExecutor()))
 
     Observable.zip(obA, obB, BiFunction { a: String, b: Int -> "$a - $b" })
