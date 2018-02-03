@@ -42,9 +42,21 @@ fun trySingle() {
             }
 }
 
+fun tryTrampoline() {
+    Log.d("WQY", "start trampoline on ${Thread.currentThread().id}")
+    Observable.just("Germany", "Britain", "France")
+            .subscribeOn(Schedulers.trampoline())
+            .subscribe {
+                Log.d("WQY", "trampoline received : $it on ${Thread.currentThread().id}")
+            }
+    Log.d("WQY", "end trampoline on ${Thread.currentThread().id}")
+}
+
 fun demoSchedulers() {
     tryComputation()
     tryIo()
     tryNewThread()
     trySingle()
+
+    tryTrampoline()
 }
