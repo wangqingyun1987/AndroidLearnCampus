@@ -3,6 +3,7 @@ package com.wangqingyun.learncampus.learnrxjava
 import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -53,6 +54,14 @@ fun tryRange() {
 fun tryInterval() {
     Observable.interval(300, TimeUnit.MILLISECONDS)
             .subscribe { Log.d("WQY", "interval item : $it") }
+}
+
+fun tryIntervalWithScheduler() {
+    Observable.interval(100, TimeUnit.MILLISECONDS, Schedulers.newThread())
+            .take(3)
+            .subscribe {
+                Log.d("WQY", "interval received : $it on ${Thread.currentThread().name}")
+            }
 }
 
 fun tryFromFuture() {
@@ -124,7 +133,7 @@ fun tryFromCallable() {
     }
 }
 
-fun tryCreateOperators() {
+fun demoCreateOperators() {
     tryCreate()
 
     tryJust()
@@ -135,6 +144,7 @@ fun tryCreateOperators() {
     tryRange()
 
     tryInterval()
+    tryIntervalWithScheduler()
 
     tryFromFuture()
 
