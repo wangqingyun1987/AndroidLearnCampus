@@ -3,6 +3,8 @@ package com.wangqingyun.learncampus.learnrxjava.cocurrencies
 import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by wangqingyun on 03/02/2018.
@@ -52,6 +54,21 @@ fun tryTrampoline() {
     Log.d("WQY", "end trampoline on ${Thread.currentThread().id}")
 }
 
+fun tryFromExecutorService() {
+    val executor = Executors.newFixedThreadPool(10)
+    Observable.interval(100, TimeUnit.MILLISECONDS).take(5)
+            .observeOn(Schedulers.from(executor))
+            .doFinally {
+                Log.d("WQY", "need to dispose executor")
+                executor.shutdown()
+            }
+            .subscribe({
+                Log.d("WQY", "from executor received : $it on ${Thread.currentThread().id}")
+            }, {}, {
+                Log.d("WQY", "from executor complete")
+            })
+}
+
 fun demoSchedulers() {
     tryComputation()
     tryIo()
@@ -59,4 +76,6 @@ fun demoSchedulers() {
     trySingle()
 
     tryTrampoline()
+
+    tryFromExecutorService()
 }
