@@ -43,9 +43,9 @@ private fun tryAnyWhereInChain() {
 
 /**
  * demonstrate 2 points
- *      1): when multiple subscribeOn presents, only the first one (the one closes to source
+ *      1): when multiple subscribeOn() presents, only the first one (the one closes to source
  *          Observable) will decide which scheduler emission happens on
- *      2): doOnSubscribe() is running on its direct following subscribeOn, if none on calling thread
+ *      2): doOnSubscribe() is running on its direct following subscribeOn(), if none on calling thread
  * */
 private fun tryMultipleSubscribeOn() {
     Observable.range(1, 3)
