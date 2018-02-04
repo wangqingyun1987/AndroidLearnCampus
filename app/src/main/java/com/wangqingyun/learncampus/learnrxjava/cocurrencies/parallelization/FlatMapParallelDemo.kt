@@ -5,6 +5,7 @@ import com.wangqingyun.learncampus.learnrxjava.cocurrencies.intensiveComputation
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Created by wangqingyun on 04/02/2018.
@@ -26,6 +27,28 @@ private fun tryFlatMapParallel() {
             }
 }
 
+private fun tryFlatMapWithGroupBy() {
+    val core = Runtime.getRuntime().availableProcessors()
+    val count = AtomicInteger()
+
+    Observable.range(1, 15)
+            .groupBy {
+                count.getAndIncrement() % core
+            }
+            .flatMap {
+                it.observeOn(Schedulers.computation())
+                        .map {
+                            intensiveComputation()
+                            it
+                        }
+            }
+            .subscribe {
+                Log.d("WQY", "received $it on ${Thread.currentThread().name}}")
+            }
+}
+
 fun demoParallelWithFlatMap() {
     tryFlatMapParallel()
+
+    tryFlatMapWithGroupBy()
 }
