@@ -3,6 +3,7 @@ package com.wangqingyun.learncampus.learnrxjava.cocurrencies.parallelization
 import android.util.Log
 import com.wangqingyun.learncampus.learnrxjava.cocurrencies.intensiveComputation
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -19,6 +20,7 @@ private fun tryFlatMapParallel() {
                             it
                         }
             }
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Log.d("WQY", "received $it")
             }
