@@ -17,6 +17,15 @@ private fun tryBufferFixedSize() {
             }
 }
 
+private fun tryBufferFixedSizeRolling() {
+    Observable.range(1, 10)
+            .buffer(2, 1)
+            .subscribe {
+                Log.d("WQY", "received $it")
+            }
+}
+
 fun demoBuffer() {
     tryBufferFixedSize()
+    tryBufferFixedSizeRolling()
 }
