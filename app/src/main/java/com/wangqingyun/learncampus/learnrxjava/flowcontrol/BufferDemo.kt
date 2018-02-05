@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 private fun tryBufferFixedSize() {
     Observable.interval(100, TimeUnit.MILLISECONDS)
-            .take(30)
+            .take(32)
             .buffer(5)
             .subscribe {
                 Log.d("WQY", "received : $it")
