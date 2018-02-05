@@ -25,7 +25,18 @@ private fun tryBufferFixedSizeRolling() {
             }
 }
 
+private fun tryBufferTimeBased() {
+    Observable.interval(30, TimeUnit.MILLISECONDS)
+            .take(30)
+            .buffer(100, TimeUnit.MILLISECONDS)
+            .subscribe {
+                Log.d("WQY", "buffer received $it")
+            }
+}
+
 fun demoBuffer() {
     tryBufferFixedSize()
     tryBufferFixedSizeRolling()
+
+    tryBufferTimeBased()
 }
