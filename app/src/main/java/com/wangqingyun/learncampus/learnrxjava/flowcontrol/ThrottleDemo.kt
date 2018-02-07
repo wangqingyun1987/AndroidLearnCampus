@@ -2,6 +2,7 @@ package com.wangqingyun.learncampus.learnrxjava.flowcontrol
 
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 /**
@@ -21,6 +22,21 @@ private fun tryThrottleLast() {
             }
 }
 
+/**
+ * sample is just an alis of throttleLast
+ * */
+private fun trySample() {
+    Observable.interval(100, TimeUnit.MILLISECONDS)
+            .map { it +1 }
+            .take(20)
+            .sample(600, TimeUnit.MILLISECONDS, Schedulers.computation(), true)
+            .subscribe {
+                Log.d("WQY", "sample received : $it")
+            }
+}
+
 fun demoThrottle() {
     tryThrottleLast()
+
+    trySample()
 }
