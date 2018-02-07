@@ -83,6 +83,24 @@ private fun compareThrottleLastAndFirst() {
     ).subscribe()
 }
 
+private fun tryThrottleWithTimeout() {
+    Observable.concat(
+            listOf(
+                    Observable.interval(100, TimeUnit.MILLISECONDS).map { "A" }.take(1),
+                    Observable.interval(600, TimeUnit.MILLISECONDS).map { "B" }.take(1),
+                    Observable.interval(200, TimeUnit.MILLISECONDS).map { "C" }.take(1),
+                    Observable.interval(350, TimeUnit.MILLISECONDS).map { "D" }.take(1),
+                    Observable.interval(120, TimeUnit.MILLISECONDS).map { "E" }.take(1),
+                    Observable.interval( 80, TimeUnit.MILLISECONDS).map { "F" }.take(1),
+                    Observable.interval(150, TimeUnit.MILLISECONDS).map { "G" }.take(1),
+                    Observable.interval(800, TimeUnit.MILLISECONDS).map { "H" }.take(1)
+            )
+    ).throttleWithTimeout(320, TimeUnit.MILLISECONDS)
+            .subscribe {
+                Log.d("WQY", "throttleWithTimeout : $it")
+            }
+}
+
 fun demoThrottle() {
     tryThrottleLast()
     trySample()
@@ -90,4 +108,6 @@ fun demoThrottle() {
     tryThrottleFirst()
 
     compareThrottleLastAndFirst()
+
+    tryThrottleWithTimeout()
 }
