@@ -45,9 +45,49 @@ private fun tryThrottleFirst() {
             }
 }
 
+/**
+ * for completeness, we used sample() here instead of throttleLast()
+ * */
+private fun compareThrottleLastAndFirst() {
+    val observableFirst = Observable.concat(
+            Observable.interval(800, TimeUnit.MILLISECONDS)
+                    .map { "A" }
+                    .take(1),
+            Observable.interval(300, TimeUnit.MILLISECONDS)
+                    .map { "B" }
+                    .take(1),
+            Observable.interval(1600, TimeUnit.MILLISECONDS)
+                    .map { "C" }
+                    .take(1)
+    )
+            .throttleFirst(1000, TimeUnit.MILLISECONDS)
+            .doOnNext { Log.d("WQY", "throttle first : $it") }
+
+    val observableLast = Observable.concat(
+            Observable.interval(800, TimeUnit.MILLISECONDS)
+                    .map { "A" }
+                    .take(1),
+            Observable.interval(300, TimeUnit.MILLISECONDS)
+                    .map { "B" }
+                    .take(1),
+            Observable.interval(1600, TimeUnit.MILLISECONDS)
+                    .map { "C" }
+                    .take(1)
+    )
+            .sample(1000, TimeUnit.MILLISECONDS, Schedulers.computation(), true)
+            .doOnNext { Log.d("WQY", "throttle last : $it") }
+
+    Observable.concat(
+            observableFirst,
+            observableLast
+    ).subscribe()
+}
+
 fun demoThrottle() {
     tryThrottleLast()
     trySample()
 
     tryThrottleFirst()
+
+    compareThrottleLastAndFirst()
 }
