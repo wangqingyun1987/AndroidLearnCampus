@@ -14,6 +14,9 @@ private fun trySwitchMap() {
             .concatMap {
                 Observable.just(it).delay((Math.abs(Random().nextInt() % 50) + 50).toLong(), TimeUnit.MILLISECONDS)
             }
+            .doOnDispose {
+                Log.d("WQY", "obRand disposed")
+            }
 
     Observable.interval(300, TimeUnit.MILLISECONDS)
             .take(5)
