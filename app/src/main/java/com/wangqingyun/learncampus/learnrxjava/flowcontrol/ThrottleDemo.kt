@@ -35,8 +35,19 @@ private fun trySample() {
             }
 }
 
+private fun tryThrottleFirst() {
+    Observable.interval(100, TimeUnit.MILLISECONDS)
+            .map { it + 1 }
+            .take(20)
+            .throttleFirst(770, TimeUnit.MILLISECONDS)
+            .subscribe {
+                Log.d("WQY", "throttle first : $it")
+            }
+}
+
 fun demoThrottle() {
     tryThrottleLast()
-
     trySample()
+
+    tryThrottleFirst()
 }
