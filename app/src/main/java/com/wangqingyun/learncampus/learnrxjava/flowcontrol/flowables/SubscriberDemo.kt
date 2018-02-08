@@ -7,6 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Created by wangqingyun on 08/02/2018.
@@ -55,8 +56,47 @@ private fun tryPassingMaxLong() {
             })
 }
 
+/**
+ * we can also micromanage our backpressure request in Subscriber
+ * */
+private fun tryPassingMicroManagedRequest() {
+    Flowable.range(100001, 8000)
+            .observeOn(Schedulers.computation())
+            .filter { it.isPrime() }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Subscriber<Int> {
+                lateinit var subscription: Subscription
+                val count = AtomicInteger()
+                override fun onSubscribe(s: Subscription?) {
+                    s?.apply {
+                        subscription = s
+                        request(40)
+                    }
+                }
+
+                override fun onNext(t: Int?) {
+                    t?.run {
+                        Log.d("WQY", "received : $t")
+                        if (count.incrementAndGet() % 20 == 0 && count.get() >= 40) {
+                            subscription.request(20)
+                        }
+                    }
+                }
+
+                override fun onError(t: Throwable?) {
+                    t?.printStackTrace()
+                }
+
+                override fun onComplete() {
+                    Log.d("WQY", "complete")
+                }
+            })
+}
+
 fun demoSubscribers() {
     tryPassingLambdas()
 
     tryPassingMaxLong()
+
+    tryPassingMicroManagedRequest()
 }
