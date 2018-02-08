@@ -1,4 +1,4 @@
-package com.wangqingyun.learncampus.learnrxjava.flowables
+package com.wangqingyun.learncampus.learnrxjava.flowcontrol.flowables
 
 import android.util.Log
 import io.reactivex.Flowable
