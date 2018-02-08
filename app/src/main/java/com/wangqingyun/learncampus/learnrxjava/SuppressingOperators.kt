@@ -1,6 +1,7 @@
 package com.wangqingyun.learncampus.learnrxjava
 
 import android.util.Log
+import com.wangqingyun.learncampus.utils.isPrime
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,17 +11,6 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by wangqingyun on 22/01/2018.
  */
-
-fun Int.isPrime(): Boolean {
-    val upper = Math.sqrt(toDouble()).toInt()
-
-    Log.d("WQY", "upper : $upper")
-
-    return (2..upper).none {
-        Log.d("WQY", "number : $this")
-        this % it == 0
-    }
-}
 
 fun tryFilter() {
     Observable.range(10, 10)
