@@ -45,10 +45,9 @@ private fun tryBufferWithBoundryObservable() {
     val observable = Observable.create(object: ObservableOnSubscribe<Int> {
         private var count = 0
         private lateinit var emitter: ObservableEmitter<Int>
-        private var stopped = AtomicBoolean(false)
         private var disposable: Disposable? = null
         private fun run() {
-            if (!stopped.get()) {
+            if (!emitter.isDisposed) {
                 disposable = AndroidSchedulers.from(Looper.getMainLooper()).scheduleDirect(
                         {
                             emitter.onNext(++count)
@@ -63,7 +62,6 @@ private fun tryBufferWithBoundryObservable() {
             this.emitter = emitter
             emitter.setCancellable {
                 Log.d("WQY", "emitter is canceled")
-                stopped.set(true)
                 disposable?.run {
                     if (!isDisposed) {
                         dispose()

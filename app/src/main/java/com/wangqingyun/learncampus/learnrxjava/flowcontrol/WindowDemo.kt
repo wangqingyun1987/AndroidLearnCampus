@@ -46,12 +46,11 @@ private fun tryWindowTimeBased() {
 private fun tryWindowBoundaryObservable() {
     val observable = Observable.create(object: ObservableOnSubscribe<Int> {
         private var count = 0
-        private var stopped = AtomicBoolean(false)
         private lateinit var emitter: ObservableEmitter<Int>
         private var disposable: Disposable? = null
 
         private fun run() {
-            if (!stopped.get()) {
+            if (!emitter.isDisposed) {
                 disposable = AndroidSchedulers.from(Looper.getMainLooper()).scheduleDirect(
                         {
                             emitter.onNext(++count)
@@ -67,7 +66,6 @@ private fun tryWindowBoundaryObservable() {
             this.emitter = emitter
 
             emitter.setCancellable {
-                stopped.set(true)
                 disposable?.run {
                     if (!isDisposed) {
                         dispose()

@@ -20,7 +20,9 @@ private fun tryUnsubscribeOn() {
         override fun subscribe(emitter: ObservableEmitter<Int>) {
             val disposable = AndroidSchedulers.from(Looper.getMainLooper())
                     .schedulePeriodicallyDirect({
-                        emitter.onNext(++count)
+                        if (!emitter.isDisposed) {
+                            emitter.onNext(++count)
+                        }
                     }, 0, 1000, TimeUnit.MILLISECONDS)
             emitter.setCancellable {
                 Log.d("WQY", "emitter disposed on ${Thread.currentThread().name}")
