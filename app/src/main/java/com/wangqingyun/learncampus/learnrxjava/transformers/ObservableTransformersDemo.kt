@@ -26,9 +26,8 @@ private fun tryCompose() {
                 emitter.onComplete()
             } else {
                 emitter.onNext(count.get())
+                AndroidSchedulers.from(Looper.getMainLooper()).scheduleDirect({ run() }, 100, TimeUnit.MILLISECONDS)
             }
-
-            AndroidSchedulers.from(Looper.getMainLooper()).scheduleDirect({ run() }, 100, TimeUnit.MILLISECONDS)
         }
 
         override fun subscribe(emitter: ObservableEmitter<Int>) {
