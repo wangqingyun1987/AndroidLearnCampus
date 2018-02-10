@@ -6,9 +6,12 @@ import io.reactivex.Emitter
 import io.reactivex.Flowable
 import io.reactivex.FlowableSubscriber
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.reactivestreams.Subscription
+import java.util.concurrent.Callable
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Created by wangqingyun on 10/02/2018.
@@ -54,6 +57,46 @@ private fun tryGenerate() {
             })
 }
 
+private fun tryWithState() {
+    Flowable.generate<Int, AtomicInteger>(
+            Callable {
+                AtomicInteger(0)
+            },
+            BiFunction {
+                state, emitter ->
+                val nextPrime = state.get().nextPrime()
+                state.set(nextPrime)
+                if (nextPrime > 100) {
+                    emitter.onComplete()
+                } else {
+                    emitter.onNext(nextPrime)
+                }
+                state
+            }
+    )
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object: FlowableSubscriber<Int> {
+                override fun onSubscribe(s: Subscription) {
+                    s.request(Long.MAX_VALUE)
+                }
+
+                override fun onNext(t: Int?) {
+                    t?.run { Log.d("WQY", "received : $this") }
+                }
+
+                override fun onError(t: Throwable?) {
+                    t?.run { Log.d("WQY", "error : ${this.message}") }
+                }
+
+                override fun onComplete() {
+                    Log.d("WQY", "complete")
+                }
+            })
+}
+
 fun demoFlowableGenerate() {
     tryGenerate()
+
+    tryWithState()
 }
