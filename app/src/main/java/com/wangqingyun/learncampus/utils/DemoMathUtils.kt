@@ -9,3 +9,11 @@ fun Int.isPrime(): Boolean {
 
     return (2..upper).none { this % it == 0 }
 }
+
+fun  Int.nextPrime(): Int {
+    var number = this + 1
+
+    while (!number.isPrime()) number++
+
+    return number
+}
