@@ -14,45 +14,45 @@ import org.reactivestreams.Subscription
  * Created by wangqingyun on 10/02/2018.
  */
 
-        private fun tryGenerate() {
-            Flowable.generate<Int>(object : Consumer<Emitter<Int>> {
-                private var number = 0
-                override fun accept(emitter: Emitter<Int>?) {
-                    emitter?.run {
-                        number = number.nextPrime()
-                        Log.d("WQY", "emitter emit $number on ${Thread.currentThread().name}")
-                        onNext(number)
-                    }
+private fun tryGenerate() {
+    Flowable.generate<Int>(object : Consumer<Emitter<Int>> {
+        private var number = 0
+        override fun accept(emitter: Emitter<Int>?) {
+            emitter?.run {
+                number = number.nextPrime()
+                Log.d("WQY", "emitter emit $number on ${Thread.currentThread().name}")
+                onNext(number)
+            }
+        }
+    })
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object: FlowableSubscriber<Int> {
+                private var count = 0
+                private lateinit var subscription: Subscription
+                override fun onSubscribe(s: Subscription) {
+                    subscription = s
+                    subscription.request(5)
                 }
-            })
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(object: FlowableSubscriber<Int> {
-                        private var count = 0
-                        private lateinit var subscription: Subscription
-                        override fun onSubscribe(s: Subscription) {
-                            subscription = s
+
+                override fun onNext(t: Int?) {
+                    t?.run {
+                        Log.d("WQY", "received : $this on ${Thread.currentThread().name}")
+                        if (++count == 5) {
                             subscription.request(5)
                         }
+                    }
+                }
 
-                        override fun onNext(t: Int?) {
-                            t?.run {
-                                Log.d("WQY", "received : $this on ${Thread.currentThread().name}")
-                                if (++count == 5) {
-                                    subscription.request(5)
-                                }
-                            }
-                        }
+                override fun onError(t: Throwable?) {
+                    t?.printStackTrace()
+                }
 
-                        override fun onError(t: Throwable?) {
-                            t?.printStackTrace()
-                        }
-
-                        override fun onComplete() {
-                            Log.d("WQY", "complete")
-                        }
-                    })
-        }
+                override fun onComplete() {
+                    Log.d("WQY", "complete")
+                }
+            })
+}
 
 fun demoFlowableGenerate() {
     tryGenerate()
