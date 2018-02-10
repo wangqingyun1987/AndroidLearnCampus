@@ -25,24 +25,24 @@ private fun tryPlainOne() {
             }
 }
 
-        private fun tryWithDropOldest() {
-            Observable.interval(1, TimeUnit.MILLISECONDS)
-                    .toFlowable(BackpressureStrategy.MISSING)
-                    .take(10000)
-                    .onBackpressureBuffer(10, object : Action {
-                        var printed = AtomicBoolean(false)
-                        override fun run() {
-                            if (printed.compareAndSet(false, true)) {
-                                Log.d("WQY", "overflow happens")
-                            }
-                        }
-                    }, BackpressureOverflowStrategy.DROP_OLDEST)
-                    .observeOn(AndroidSchedulers.mainThread(), false, 8)
-                    .subscribe {
-                        Thread.sleep(10)
-                        Log.d("WQY", "received : $it")
+private fun tryWithDropOldest() {
+    Observable.interval(1, TimeUnit.MILLISECONDS)
+            .toFlowable(BackpressureStrategy.MISSING)
+            .take(10000)
+            .onBackpressureBuffer(10, object : Action {
+                var printed = AtomicBoolean(false)
+                override fun run() {
+                    if (printed.compareAndSet(false, true)) {
+                        Log.d("WQY", "overflow happens")
                     }
-        }
+                }
+            }, BackpressureOverflowStrategy.DROP_OLDEST)
+            .observeOn(AndroidSchedulers.mainThread(), false, 8)
+            .subscribe {
+                Thread.sleep(10)
+                Log.d("WQY", "received : $it")
+            }
+}
 
 fun demoOnBackpressureBuffer() {
     tryPlainOne()
