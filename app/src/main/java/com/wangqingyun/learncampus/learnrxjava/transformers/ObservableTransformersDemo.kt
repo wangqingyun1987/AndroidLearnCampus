@@ -42,6 +42,38 @@ private fun tryCompose() {
             }
 }
 
+private fun tryWithoutCompose() {
+    fun <T> Observable<T>.asyncCall() = subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
+
+    Observable.create<Int>(object: ObservableOnSubscribe<Int> {
+        private var count = AtomicInteger()
+        private lateinit var emitter: Emitter<Int>
+
+        private fun run() {
+            if (count.incrementAndGet() > 10) {
+                emitter.onComplete()
+            } else {
+                emitter.onNext(count.get())
+                AndroidSchedulers.mainThread().scheduleDirect({ run() }, 100, TimeUnit.MILLISECONDS)
+            }
+        }
+
+        override fun subscribe(emitter: ObservableEmitter<Int>) {
+            this.emitter = emitter
+            Log.d("WQY", "start emitting on ${Thread.currentThread().name}")
+            run()
+        }
+    })
+            .asyncCall()
+            .subscribe({
+                Log.d("WQY", "received $it on ${Thread.currentThread().name}")
+            }, {}, {
+                Log.d("WQY", "complete on ${Thread.currentThread().name}")
+            })
+}
+
 fun demoObservableTransform() {
     tryCompose()
+
+    tryWithoutCompose()
 }
