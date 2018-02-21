@@ -1,5 +1,6 @@
 package com.wangqingyun.learncampus.learnrxjava.test.nonblocking
 
+import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import org.junit.Assert.*
 import org.junit.Test
@@ -44,5 +45,18 @@ class TenElementsKtTest {
         observer.assertComplete()
                 .assertNoErrors()
                 .assertValueCount(10)
+    }
+
+    @Test
+    fun verifyWithCount() {
+        val source = Observable.interval(100, TimeUnit.MILLISECONDS).take(1000)
+        val observer = TestObserver<Long>()
+
+        source.subscribe(observer)
+
+        observer.awaitCount(5)
+                .assertNotComplete()
+                .assertNoErrors()
+                .assertValueCount(5)
     }
 }
