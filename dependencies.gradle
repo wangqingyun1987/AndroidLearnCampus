@@ -1,0 +1,18 @@
+ext {
+    kotlinVersion    = '1.2.21'
+    daggerVersion    = '2.11'
+    rxJavaVersion    = '2.1.8'
+    rxAndroidVersion = '2.0.1'
+    okHttpVersion    = '3.10.0'
+
+    libs = [
+            kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            dagger                   : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroidSupport     : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerAndroidProcessor   : "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            rxJava                   : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid                : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            okHttp                   : "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    ]
+}
