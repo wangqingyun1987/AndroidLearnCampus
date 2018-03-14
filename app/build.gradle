@@ -50,4 +50,7 @@ dependencies {
 
     // network
     implementation libs.okHttp
+
+    testImplementation tests.jUnit
+    testImplementation tests.mockito
 }
