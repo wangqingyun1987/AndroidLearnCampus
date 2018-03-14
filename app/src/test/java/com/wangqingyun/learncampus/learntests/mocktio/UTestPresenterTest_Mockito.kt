@@ -9,8 +9,9 @@ class UTestPresenterTest_Mockito {
     @Test
     fun verifyPresenter() {
         val view = Mockito.mock(UTestContract.View::class.java)
+        val usecase = com.nhaarman.mockito_kotlin.mock<UTestUsecase>()
         `when`(view.isUIReady()).thenReturn(true)
-        val presenter = UTestPresenter(view)
+        val presenter = UTestPresenter(view, usecase)
         presenter.onMeTouched()
 
         // passing any() here will lead to null error, that is why we will use mockito-kotlin in future
