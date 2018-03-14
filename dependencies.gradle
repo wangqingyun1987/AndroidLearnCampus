@@ -7,8 +7,9 @@ ext {
     okHttpVersion                     = '3.10.0'
     constraintLayoutVersion           = '1.0.2'
 
-    jUnitVersion     = '4.12'
-    mockitoVersion   = '2.8.47'
+    jUnitVersion                      = '4.12'
+    mockitoVersion                    = '2.8.47'
+    mokitoKotlinVersion               = '1.5.0'
 
     libs = [
             kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
@@ -27,5 +28,6 @@ ext {
     tests = [
             jUnit                    : "junit:junit:${jUnitVersion}",
             mockito                  : "org.mockito:mockito-core:${mockitoVersion}",
+            mokitoKotlin             : "com.nhaarman:mockito-kotlin:${mokitoKotlinVersion}"
     ]
 }
