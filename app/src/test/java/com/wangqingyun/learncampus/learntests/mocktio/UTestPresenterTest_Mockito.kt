@@ -4,9 +4,7 @@ import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.*
 
-/**
- * Created by qingyun.wang on 14/03/2018.
- */
+@Suppress("ClassName")
 class UTestPresenterTest_Mockito {
     @Test
     fun verifyPresenter() {
