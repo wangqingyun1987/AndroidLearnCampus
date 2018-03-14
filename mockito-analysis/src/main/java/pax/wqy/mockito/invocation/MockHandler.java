@@ -2,6 +2,10 @@ package pax.wqy.mockito.invocation;
 
 /**
  * Mockito handler of an invocation on a mock, this is the core part of the API, the heart of mockito.
+ *
+ * Mockito actually use bytebuddy (http://bytebuddy.net/) to create a class for mocked type, and mockito
+ *      will then insert a MockHandler instance into the created class, so all method-calls will be redirected
+ *      to MockHandler, this is essential as how mockito works
  * */
 public interface MockHandler {
     /**
