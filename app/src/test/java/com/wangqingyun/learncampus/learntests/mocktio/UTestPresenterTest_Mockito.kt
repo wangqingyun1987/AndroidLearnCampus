@@ -7,7 +7,7 @@ import org.mockito.Mockito.*
 /**
  * Created by qingyun.wang on 14/03/2018.
  */
-class UTestPresenterTest {
+class UTestPresenterTest_Mockito {
     @Test
     fun verifyPresenter() {
         val view = Mockito.mock(UTestContract.View::class.java)
