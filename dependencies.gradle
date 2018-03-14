@@ -1,9 +1,14 @@
 ext {
-    kotlinVersion    = '1.2.21'
-    daggerVersion    = '2.11'
-    rxJavaVersion    = '2.1.8'
-    rxAndroidVersion = '2.0.1'
-    okHttpVersion    = '3.10.0'
+    kotlinVersion                     = '1.2.21'
+    daggerVersion                     = '2.11'
+    rxJavaVersion                     = '2.1.8'
+    rxAndroidVersion                  = '2.0.1'
+    androidSupportVersion             = '26.1.0'
+    okHttpVersion                     = '3.10.0'
+    constraintLayoutVersion           = '1.0.2'
+
+    jUnitVersion     = '4.12'
+    mockitoVersion   = '2.8.47'
 
     libs = [
             kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
@@ -13,6 +18,14 @@ ext {
             daggerAndroidProcessor   : "com.google.dagger:dagger-android-processor:${daggerVersion}",
             rxJava                   : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxAndroid                : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            okHttp                   : "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+            appcompatV7              : "com.android.support:appcompat-v7:$androidSupportVersion",
+            androidSupportDesign     : "com.android.support:design:${androidSupportVersion}",
+            okHttp                   : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
+            constraintLayout         : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+    ]
+
+    tests = [
+            jUnit                    : "junit:junit:${jUnitVersion}",
+            mockito                  : "org.mockito:mockito-core:${mockitoVersion}",
     ]
 }
