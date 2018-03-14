@@ -1,8 +1,6 @@
 package com.wangqingyun.learncampus.learndagger.components.utest
 
-import com.wangqingyun.learncampus.learntests.mocktio.UTestActivity
-import com.wangqingyun.learncampus.learntests.mocktio.UTestContract
-import com.wangqingyun.learncampus.learntests.mocktio.UTestPresenter
+import com.wangqingyun.learncampus.learntests.mocktio.*
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
@@ -21,4 +19,7 @@ class UTestModule {
 
     @Provides
     fun providePresenter(impl: UTestPresenter): UTestContract.Presenter = impl
+
+    @Provides
+    fun provideUTestUsecase(impl: UTestUsecaseImpl): UTestUsecase = impl
 }
