@@ -1,1 +1,1 @@
-include ':app', ':viewpager', ':mockito'
+include ':app', ':viewpager', ':mockito-analysis'
