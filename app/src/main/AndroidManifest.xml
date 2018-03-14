@@ -25,6 +25,8 @@
         <activity android:name=".SecondActivity"/>
 
         <activity android:name=".ui.support.TextInputLayoutDemo"/>
+
+        <activity android:name=".learntests.mocktio.UTestActivity"/>
     </application>
 
 </manifest>
