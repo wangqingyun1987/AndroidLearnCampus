@@ -5,5 +5,7 @@ package pax.wqy.mockito.internal.progress;
  */
 
 public interface MockingProgress {
+    void stubbingStarted();
+
     void validateState();
 }
