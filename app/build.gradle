@@ -53,5 +53,10 @@ dependencies {
 
     testImplementation tests.jUnit
     testImplementation tests.mockito
-    testImplementation tests.mokitoKotlin
+    testImplementation(tests.mokitoKotlin) {
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-runtime"
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-reflect"
+        exclude group: "org.mockito",          module: "mockito-core"
+    }
 }
