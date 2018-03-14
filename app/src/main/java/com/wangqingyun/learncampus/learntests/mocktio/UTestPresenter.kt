@@ -6,6 +6,8 @@ class UTestPresenter @Inject constructor(
         private val view: UTestContract.View
 ): UTestContract.Presenter {
     override fun onMeTouched() {
-        view.showTouchText("Nice Touch")
+        if (view.isUIReady()) {
+            view.showTouchText("Nice Touch")
+        }
     }
 }
