@@ -51,6 +51,9 @@ dependencies {
     // network
     implementation libs.okHttp
 
+    // google
+    implementation google.maps
+
     testImplementation tests.jUnit
     testImplementation tests.mockito
     testImplementation(tests.mokitoKotlin) {
