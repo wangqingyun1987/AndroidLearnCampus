@@ -28,14 +28,14 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-  test:
-    working_directory: ~/code
-    docker:
-      -image: circleci/android:api-25-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
-    steps:
-      - checkout
-      - run:
-          name: Run Tests
-          command: ./gradle test
+#  test:
+#    working_directory: ~/code
+#    docker:
+#      -image: circleci/android:api-25-alpha
+#    environment:
+#      JVM_OPTS: -Xmx3200m
+#    steps:
+#      - checkout
+#      - run:
+#          name: Run Tests
+#          command: ./gradle test
