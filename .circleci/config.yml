@@ -1,3 +1,7 @@
+# so either we have a job named build or we have a workflow
+#   1): without workflow, a job named "build" will get run
+#   2): with workflow, workflow will take control instead
+
 default: &defaults
   docker:
     - image: circleci/android:api-25-alpha
