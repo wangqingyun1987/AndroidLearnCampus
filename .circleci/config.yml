@@ -42,13 +42,15 @@ jobs:
       - store_test_results:
           path: app/build/test-results
 
-  sayHello:
+  installAwscli:
     working_directory: ~/code
     <<: *defaults
     steps:
       - run:
           name: say hello
-          command: echo "Hello, circle ci"
+          command: |
+            echo "Hello, circle ci"
+            apt install python-pip python-dev
 
 workflows:
   version: 2
