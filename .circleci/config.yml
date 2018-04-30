@@ -50,7 +50,7 @@ jobs:
           name: say hello
           command: |
             echo "Hello, circle ci"
-            apt install python-pip python-dev
+            sudo apt install python-pip python-dev
 
 workflows:
   version: 2
