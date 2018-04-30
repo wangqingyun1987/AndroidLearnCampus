@@ -51,6 +51,7 @@ jobs:
           command: |
             echo "Hello, circle ci"
             sudo apt install python-pip python-dev
+            pip install awscli
 
 workflows:
   version: 2
