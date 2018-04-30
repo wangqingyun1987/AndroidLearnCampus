@@ -1,3 +1,9 @@
+default: &defaults
+  docker:
+    - image: circleci/android:api-25-alpha
+  environment:
+    JVM_OPTS: -Xmx3200m
+
 version: 2
 jobs:
   build:
@@ -40,3 +46,18 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradle test
+
+  sayHello:
+    working_directory: ~/code
+    <<: *defaults
+    steps:
+      - run:
+          name: say hello
+          command: echo "Hello, circle ci"
+
+#workflows:
+#  version: 2
+#  build-and-test:
+#    jobs:
+#      - build
+#      - test
