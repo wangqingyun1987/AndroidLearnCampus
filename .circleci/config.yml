@@ -52,7 +52,7 @@ jobs:
             echo "Hello, circle ci"
             sudo apt install python-pip python-dev
             sudo pip install awscli
-            aws --help
+            aws help
 
 workflows:
   version: 2
