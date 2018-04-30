@@ -6,7 +6,8 @@ default: &defaults
 
 version: 2
 jobs:
-  build:
+#  build:
+  aha:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-25-alpha
@@ -55,9 +56,9 @@ jobs:
           name: say hello
           command: echo "Hello, circle ci"
 
-workflows:
-  version: 2
-  build-and-test:
-    jobs:
-      - build
-      - test
+#workflows:
+#  version: 2
+#  build-and-test:
+#    jobs:
+#      - build
+#      - test
